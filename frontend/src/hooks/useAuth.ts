@@ -7,17 +7,48 @@ export function useAuth() {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const checkAuth = async (currentToken?: string) => {
+    const tokenToCheck = currentToken || token;
+    if (!tokenToCheck) return false;
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/me', {
+        headers: {
+          'Authorization': `Bearer ${tokenToCheck}`
+        }
+      });
+      
+      if (response.ok) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  };
+
   useEffect(() => {
     // Only run on client side
     if (typeof window !== 'undefined') {
       const storedToken = localStorage.getItem('adminToken');
       if (storedToken) {
-        setToken(storedToken);
-        setIsAuthenticated(true);
+        // Validate the token first
+        checkAuth(storedToken).then((isValid) => {
+          if (isValid) {
+            setToken(storedToken);
+            setIsAuthenticated(true);
+          } else {
+            // Token is invalid, remove it
+            localStorage.removeItem('adminToken');
+            setIsAuthenticated(false);
+          }
+          setLoading(false);
+        });
       } else {
         setIsAuthenticated(false);
+        setLoading(false);
       }
-      setLoading(false);
     }
   }, []);
 
@@ -33,27 +64,7 @@ export function useAuth() {
     setIsAuthenticated(false);
   };
 
-  const checkAuth = async () => {
-    if (!token) return false;
-    
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/me', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      
-      if (response.ok) {
-        return true;
-      } else {
-        logout();
-        return false;
-      }
-    } catch (error) {
-      logout();
-      return false;
-    }
-  };
+
 
   return {
     isAuthenticated,

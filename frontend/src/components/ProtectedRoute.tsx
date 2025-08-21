@@ -16,6 +16,8 @@ export default function ProtectedRoute({
 
   useEffect(() => {
     if (!loading && !isAuthenticated && typeof window !== 'undefined') {
+      // Clear any invalid tokens
+      localStorage.removeItem('adminToken');
       window.location.href = redirectTo;
     }
   }, [isAuthenticated, loading, redirectTo]);
