@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Login</title>
+</head>
+<body>
+    <h1>Test Login</h1>
+    <button onclick="clearStorage()">Clear Storage</button>
+    <button onclick="testLogin()">Test Login</button>
+    <div id="result"></div>
+
+    <script>
+        function clearStorage() {
+            localStorage.removeItem('adminToken');
+            document.getElementById('result').innerHTML = 'Storage cleared!';
+        }
+
+        async function testLogin() {
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@huzaifa.dev',
+                        password: 'June_2k03'
+                    })
+                });
+
+                const result = await response.json();
+                console.log('Login response:', result);
+                
+                if (result.success) {
+                    document.getElementById('result').innerHTML = `
+                        <h3>Login Successful!</h3>
+                        <p>Token: ${result.data.token.substring(0, 50)}...</p>
+                        <p>User: ${result.data.user.name}</p>
+                    `;
+                } else {
+                    document.getElementById('result').innerHTML = `
+                        <h3>Login Failed!</h3>
+                        <p>Error: ${result.message}</p>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = `
+                    <h3>Error!</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

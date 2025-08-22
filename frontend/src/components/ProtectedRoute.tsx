@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import WorldClassLoader from './WorldClassLoader';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -25,12 +26,11 @@ export default function ProtectedRoute({
   // Show loading while checking authentication
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#0a0f1f] to-[#1a2332] flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-lg">Checking Authentication...</p>
-        </div>
-      </div>
+      <WorldClassLoader 
+        message="Checking Authentication..." 
+        variant="orbit"
+        size="md"
+      />
     );
   }
 

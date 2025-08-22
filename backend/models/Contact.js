@@ -42,6 +42,10 @@ const contactSchema = new mongoose.Schema({
   isSpam: {
     type: Boolean,
     default: false
+  },
+  repliedAt: {
+    type: Date,
+    default: null
   }
 }, {
   timestamps: true,
@@ -96,6 +100,13 @@ contactSchema.statics.getStats = async function() {
 // Instance method to mark as read
 contactSchema.methods.markAsRead = function() {
   this.status = 'read';
+  return this.save();
+};
+
+// Instance method to mark as replied
+contactSchema.methods.markAsReplied = function() {
+  this.status = 'replied';
+  this.repliedAt = new Date();
   return this.save();
 };
 

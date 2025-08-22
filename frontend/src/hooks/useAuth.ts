@@ -12,6 +12,7 @@ export function useAuth() {
     if (!tokenToCheck) return false;
     
     try {
+      console.log('Checking auth with token:', tokenToCheck.substring(0, 20) + '...');
       const response = await fetch('http://localhost:5000/api/auth/me', {
         headers: {
           'Authorization': `Bearer ${tokenToCheck}`
@@ -21,9 +22,11 @@ export function useAuth() {
       if (response.ok) {
         return true;
       } else {
+        console.log('Auth check failed:', response.status, response.statusText);
         return false;
       }
     } catch (error) {
+      console.error('Auth check error:', error);
       return false;
     }
   };
@@ -53,6 +56,7 @@ export function useAuth() {
   }, []);
 
   const login = (newToken: string) => {
+    console.log('Login called with token:', newToken.substring(0, 20) + '...');
     localStorage.setItem('adminToken', newToken);
     setToken(newToken);
     setIsAuthenticated(true);

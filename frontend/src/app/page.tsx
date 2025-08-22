@@ -464,8 +464,8 @@ export default function Home() {
               viewport={{ once: true, amount: 0.2 }}
               className="bg-[#16244a]/80 rounded-xl overflow-hidden shadow-xl max-w-sm mx-auto border border-blue-400/20 backdrop-blur-lg group transition-all duration-300"
               style={{ willChange: "transform" }}
-            >
-              <Image
+        >
+          <Image
                 alt="Screenshot of NeoStore E-Commerce platform showing AR product visualization and shopping interface"
                 className="w-full object-cover"
                 height={300}
@@ -1246,7 +1246,7 @@ export default function Home() {
                 </motion.button>
               </div>
             </motion.div>
-          </div>
+    </div>
         </motion.div>
       </motion.section>
     </main>

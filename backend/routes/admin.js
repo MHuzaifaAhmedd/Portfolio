@@ -3,6 +3,7 @@ const router = express.Router();
 const Contact = require('../models/Contact');
 const User = require('../models/User');
 const { authenticateToken, requireAdmin } = require('../middleware/auth');
+const { sendReplyEmail } = require('../utils/email');
 
 // Apply authentication middleware to all admin routes
 router.use(authenticateToken);
@@ -232,10 +233,17 @@ router.post('/contacts/:id/reply', async (req, res) => {
     
     // Update status to replied
     contact.status = 'replied';
+    contact.repliedAt = new Date();
     await contact.save();
     
-    // TODO: Send email reply to the contact
-    // This would integrate with your email service
+    // Send email reply to the contact
+    try {
+      await sendReplyEmail(contact, replyMessage);
+      console.log(`✅ Reply email sent to ${contact.email}`);
+    } catch (emailError) {
+      console.error('❌ Failed to send reply email:', emailError);
+      // Don't fail the request if email fails, but log it
+    }
     
     res.json({
       success: true,
@@ -243,7 +251,7 @@ router.post('/contacts/:id/reply', async (req, res) => {
       data: {
         contactId: contact._id,
         status: contact.status,
-        repliedAt: new Date()
+        repliedAt: contact.repliedAt
       }
     });
     
