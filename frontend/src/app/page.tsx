@@ -164,20 +164,28 @@ export default function Home() {
       </video>
       {/* Optional: Overlay for readability (above video, below content) */}
       <div className="fixed top-0 left-0 w-full h-full bg-[#0a0f1f]/40 z-0 pointer-events-none" />
-      {/* Header */}
+      {/* Responsive Header */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="flex items-center justify-between px-6 sm:px-10 md:px-16 py-5 relative z-20"
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 md:px-10 lg:px-16 py-4 sm:py-5 relative z-20 space-y-4 sm:space-y-0"
       >
+        {/* Logo */}
         <a
           href="#"
-          className="font-semibold text-cyan-400 text-lg sm:text-xl md:text-2xl tracking-tight hover:scale-105 transition-transform duration-200"
+          className="font-semibold text-cyan-400 text-lg sm:text-xl md:text-2xl tracking-tight hover:scale-105 transition-transform duration-200 self-start sm:self-auto"
         >
           huzaifa.<span className="text-cyan-400">dev</span>
         </a>
-        <nav className="hidden md:flex space-x-8 text-xs font-semibold text-gray-300">
+        
+        {/* Mobile Menu Button */}
+        <button className="md:hidden self-end sm:self-auto w-10 h-10 bg-[#1a2332]/80 rounded-lg flex items-center justify-center border border-[#2a3342]/50 hover:border-cyan-400/50 transition-all duration-300">
+          <i className="fas fa-bars text-cyan-400"></i>
+        </button>
+        
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-6 lg:space-x-8 text-xs font-semibold text-gray-300">
           <a className="hover:text-white transition relative group" href="#">
             <span className="group-hover:underline group-hover:underline-offset-4">ABOUT</span>
           </a>
@@ -191,60 +199,61 @@ export default function Home() {
             <span className="group-hover:underline group-hover:underline-offset-4">CONTACT</span>
           </a>
         </nav>
-        <div className="hidden md:flex items-center space-x-4">
+        
+        {/* Desktop Actions */}
+        <div className="hidden md:flex items-center space-x-3 lg:space-x-4">
           <motion.button
             whileHover={{ scale: 1.15, rotate: -10 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Toggle dark mode"
             className="text-gray-300 hover:text-white transition text-lg"
           >
-            {/* TODO: Add Font Awesome or another icon library for icons */}
             <i className="fas fa-moon"></i>
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.96 }}
-            className="text-cyan-400 border border-cyan-400 text-xs font-semibold px-4 py-1 rounded hover:bg-cyan-400 hover:text-black transition shadow-lg shadow-cyan-400/10"
+            className="text-cyan-400 border border-cyan-400 text-xs font-semibold px-3 lg:px-4 py-1 rounded hover:bg-cyan-400 hover:text-black transition shadow-lg shadow-cyan-400/10"
           >
             LET&apos;S TALK
           </motion.button>
         </div>
       </motion.div>
 
-      {/* Hero Section */}
+      {/* Responsive Hero Section */}
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.6 }}
         variants={sectionVariant}
-        className="text-center pt-10 md:pt-20 max-w-4xl mx-auto relative z-20"
+        className="text-center pt-8 sm:pt-10 md:pt-16 lg:pt-20 px-4 sm:px-6 md:px-8 max-w-4xl mx-auto relative z-20"
       >
         <motion.div variants={sectionVariant}>
-          <span className="inline-block text-[10px] sm:text-xs font-semibold text-cyan-400 border border-cyan-400 rounded-full px-3 py-[2px] mb-4 bg-[#0a0f1f]/60 backdrop-blur">
+          <span className="inline-block text-[10px] sm:text-xs font-semibold text-cyan-400 border border-cyan-400 rounded-full px-2 sm:px-3 py-[2px] mb-3 sm:mb-4 bg-[#0a0f1f]/60 backdrop-blur">
             SOFTWARE ENGINEER
           </span>
         </motion.div>
         <motion.h1
           variants={sectionVariant}
-          className="font-extrabold text-3xl sm:text-4xl md:text-5xl leading-tight max-w-3xl mx-auto text-white"
+          className="font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight max-w-3xl mx-auto text-white px-2 sm:px-4"
         >
-          Building <span className="text-cyan-300 font-bold">AI-powered</span> <span className="text-blue-300 font-bold">solutions</span> that <br /> transform industries.
+          Building <span className="text-cyan-300 font-bold">AI-powered</span> <span className="text-blue-300 font-bold">solutions</span> that <br className="hidden sm:block" /> transform industries.
         </motion.h1>
         <motion.p
           variants={sectionVariant}
-          className="text-gray-200 text-sm sm:text-base font-medium mt-4 max-w-md mx-auto leading-relaxed"
+          className="text-gray-200 text-sm sm:text-base font-medium mt-3 sm:mt-4 max-w-md mx-auto leading-relaxed px-4 sm:px-6"
         >
           Full-stack developer specializing in React, Django, AI integration, and mobile applications. 
           Creating intelligent systems that solve real-world problems.
         </motion.p>
         <motion.div
           variants={sectionVariant}
-          className="mt-6 flex justify-center space-x-4"
+          className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 px-4 sm:px-6"
         >
           <motion.button
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.96 }}
-            className="bg-cyan-400 text-black text-xs sm:text-sm font-semibold px-5 py-2 rounded hover:bg-cyan-500 transition flex items-center space-x-1 shadow-lg shadow-cyan-400/10"
+            className="w-full sm:w-auto bg-cyan-400 text-black text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2 sm:py-3 rounded hover:bg-cyan-500 transition flex items-center justify-center space-x-1 shadow-lg shadow-cyan-400/10"
           >
             <span>Let&apos;s Talk</span>
             <i className="fas fa-arrow-right"></i>
@@ -252,7 +261,7 @@ export default function Home() {
           <motion.button
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.96 }}
-            className="bg-transparent border border-gray-600 text-gray-300 text-xs sm:text-sm font-semibold px-5 py-2 rounded hover:bg-gray-800 transition flex items-center space-x-2 shadow-lg shadow-gray-600/10"
+            className="w-full sm:w-auto bg-transparent border border-gray-600 text-gray-300 text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2 sm:py-3 rounded hover:bg-gray-800 transition flex items-center justify-center space-x-2 shadow-lg shadow-gray-600/10"
           >
             <i className="fas fa-download"></i>
             <span>Download Resume</span>
@@ -260,48 +269,48 @@ export default function Home() {
         </motion.div>
         <motion.div
           variants={sectionVariant}
-          className="mt-10 text-gray-600 text-xl animate-bounce"
+          className="mt-8 sm:mt-10 text-gray-600 text-lg sm:text-xl animate-bounce"
         >
           <i className="fas fa-chevron-down"></i>
         </motion.div>
       </motion.div>
 
-      {/* About Section */}
+      {/* Responsive About Section */}
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={sectionVariant}
-        className="mt-20 md:mt-32 flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between max-w-7xl mx-auto gap-10 md:gap-20 px-6 sm:px-10 md:px-16 relative z-20"
+        className="mt-16 sm:mt-20 md:mt-24 lg:mt-32 flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-between max-w-7xl mx-auto gap-8 sm:gap-10 md:gap-16 lg:gap-20 px-4 sm:px-6 md:px-10 lg:px-16 relative z-20"
       >
-        <motion.div variants={sectionVariant} className="max-w-xl text-left">
-          <h2 className="font-bold text-xl sm:text-2xl mb-6 text-white">About Me</h2>
-          <p className="text-gray-100 text-sm sm:text-base font-medium mb-6 leading-relaxed">
+        <motion.div variants={sectionVariant} className="max-w-xl text-left order-2 lg:order-1">
+          <h2 className="font-bold text-lg sm:text-xl md:text-2xl mb-4 sm:mb-6 text-white">About Me</h2>
+          <p className="text-gray-100 text-sm sm:text-base font-medium mb-4 sm:mb-6 leading-relaxed">
             I&apos;m Muhammad Huzaifa Ahmed, a Software Engineer with expertise in full-stack development, AI integration, and mobile applications. 
             Currently working at Family Builders & Developers, building scalable business applications with automated workflows and real-time data processing.
           </p>
-          <p className="text-gray-100 text-sm sm:text-base font-medium mb-8 leading-relaxed">
+          <p className="text-gray-100 text-sm sm:text-base font-medium mb-6 sm:mb-8 leading-relaxed">
             My experience includes developing AI-powered road safety systems using YOLOv8, comprehensive HR management platforms, and e-commerce solutions. 
             I specialize in React, Django, React Native, and database technologies including Oracle, MySQL, and MongoDB.
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-3 text-gray-100 text-sm sm:text-base font-medium">
-            <li className="flex items-center space-x-3">
-              <span className="block w-3 h-3 rounded-full bg-cyan-300 shadow-lg shadow-cyan-300/30"></span>
+          <ul className="flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-3 text-gray-100 text-sm sm:text-base font-medium">
+            <li className="flex items-center space-x-2 sm:space-x-3">
+              <span className="block w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-cyan-300 shadow-lg shadow-cyan-300/30"></span>
               <span>Based in Karachi, Pakistan</span>
             </li>
-            <li className="flex items-center space-x-3">
-              <span className="block w-3 h-3 rounded-full bg-cyan-300 shadow-lg shadow-cyan-300/30"></span>
+            <li className="flex items-center space-x-2 sm:space-x-3">
+              <span className="block w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-cyan-300 shadow-lg shadow-cyan-300/30"></span>
               <span>Available for freelance</span>
             </li>
-            <li className="flex items-center space-x-3">
-              <span className="block w-3 h-3 rounded-full bg-cyan-300 shadow-lg shadow-cyan-300/30"></span>
+            <li className="flex items-center space-x-2 sm:space-x-3">
+              <span className="block w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-cyan-300 shadow-lg shadow-cyan-300/30"></span>
               <span>Open to relocation</span>
             </li>
           </ul>
         </motion.div>
         <motion.div
           variants={sectionVariant}
-          className="relative max-w-sm w-full rounded-lg overflow-hidden shadow-2xl shadow-cyan-400/10 backdrop-blur-lg bg-[#0a0f1f]/60"
+          className="relative max-w-xs sm:max-w-sm w-full rounded-lg overflow-hidden shadow-2xl shadow-cyan-400/10 backdrop-blur-lg bg-[#0a0f1f]/60 order-1 lg:order-2 mb-6 lg:mb-0"
         >
           <Image
             src="https://storage.googleapis.com/a1aa/image/ec171ba0-988b-4d60-7008-5bad5bd99d49.jpg"
@@ -310,31 +319,31 @@ export default function Home() {
             height={300}
             className="w-full h-auto rounded-lg object-cover"
           />
-          <div className="absolute bottom-4 right-4 bg-[#111111cc] rounded-lg p-4 w-44 text-left backdrop-blur shadow-lg shadow-cyan-400/10">
-            <h3 className="text-cyan-400 font-semibold mb-3 text-sm">Tech Stack</h3>
-            <div className="grid grid-cols-3 gap-3 text-gray-300 text-[9px]">
+          <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-[#111111cc] rounded-lg p-2 sm:p-4 w-32 sm:w-44 text-left backdrop-blur shadow-lg shadow-cyan-400/10">
+            <h3 className="text-cyan-400 font-semibold mb-2 sm:mb-3 text-xs sm:text-sm">Tech Stack</h3>
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 text-gray-300 text-[8px] sm:text-[9px]">
               <div className="flex flex-col items-center space-y-1">
-                <i className="fab fa-react text-cyan-400 text-lg"></i>
+                <i className="fab fa-react text-cyan-400 text-sm sm:text-lg"></i>
                 <span>React</span>
               </div>
               <div className="flex flex-col items-center space-y-1">
-                <i className="fab fa-python text-cyan-400 text-lg"></i>
+                <i className="fab fa-python text-cyan-400 text-sm sm:text-lg"></i>
                 <span>Django</span>
               </div>
               <div className="flex flex-col items-center space-y-1">
-                <i className="fab fa-mobile text-cyan-400 text-lg"></i>
+                <i className="fab fa-mobile text-cyan-400 text-sm sm:text-lg"></i>
                 <span>React Native</span>
               </div>
               <div className="flex flex-col items-center space-y-1">
-                <i className="fab fa-node-js text-cyan-400 text-lg"></i>
+                <i className="fab fa-node-js text-cyan-400 text-sm sm:text-lg"></i>
                 <span>Express.js</span>
               </div>
               <div className="flex flex-col items-center space-y-1">
-                <i className="fas fa-database text-cyan-400 text-lg"></i>
+                <i className="fas fa-database text-cyan-400 text-sm sm:text-lg"></i>
                 <span>MongoDB</span>
               </div>
               <div className="flex flex-col items-center space-y-1">
-                <i className="fas fa-brain text-cyan-400 text-lg"></i>
+                <i className="fas fa-brain text-cyan-400 text-sm sm:text-lg"></i>
                 <span>AI/ML</span>
               </div>
             </div>
@@ -342,24 +351,24 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
-      {/* --- Featured Work & Testimonials Section --- */}
+      {/* --- Responsive Featured Work & Testimonials Section --- */}
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={sectionVariant}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20 relative z-20"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 pb-16 sm:pb-20 relative z-20"
       >
         {/* Featured Work Section */}
         <motion.div variants={sectionVariant}>
-          <h2 className="font-bold text-white text-2xl sm:text-3xl mb-10 text-center">Featured Work</h2>
+          <h2 className="font-bold text-white text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8 lg:mb-10 text-center px-4 sm:px-6">Featured Work</h2>
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6"
             variants={cardStagger}
             initial="initial"
             animate="animate"
           >
-            {/* Card 1 */}
+            {/* Responsive Card 1 */}
             <motion.div
               ref={card1Ref}
               {...card1Motion}
@@ -368,7 +377,7 @@ export default function Home() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
-              className="bg-[#16244a]/80 rounded-xl overflow-hidden shadow-xl max-w-sm mx-auto border border-blue-400/20 backdrop-blur-lg group transition-all duration-300"
+              className="bg-[#16244a]/80 rounded-xl overflow-hidden shadow-xl w-full max-w-sm mx-auto border border-blue-400/20 backdrop-blur-lg group transition-all duration-300"
               style={{ willChange: "transform" }}
             >
               <Image
@@ -379,28 +388,26 @@ export default function Home() {
                 width={600}
               />
               <motion.div
-                className="bg-[#1e2a4a]/80 p-4 rounded-b-xl"
+                className="bg-[#1e2a4a]/80 p-3 sm:p-4 rounded-b-xl"
                 variants={cardContentVariants}
                 initial="initial"
                 whileHover="hover"
               >
-                <motion.h3 className="font-bold text-white text-base mb-2" variants={cardContentVariants}>RastaNigheban.ai</motion.h3>
-                <motion.p className="text-gray-100 text-sm mb-3 leading-relaxed" variants={cardContentVariants}>
+                <motion.h3 className="font-bold text-white text-sm sm:text-base mb-2" variants={cardContentVariants}>RastaNigheban.ai</motion.h3>
+                <motion.p className="text-gray-100 text-xs sm:text-sm mb-3 leading-relaxed" variants={cardContentVariants}>
                   AI-based road safety system using YOLOv8 for real-time pothole detection with React Native and Django.
                 </motion.p>
                 <motion.div className="flex flex-wrap gap-1 mb-3" variants={cardContentVariants}>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">React Native</span>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">Django</span>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">YOLOv8</span>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">AI/ML</span>
+                  <span className="bg-[#223366] text-[8px] sm:text-[10px] rounded px-1 sm:px-2 py-[1px] sm:py-[2px]">React Native</span>
+                  <span className="bg-[#223366] text-[8px] sm:text-[10px] rounded px-1 sm:px-2 py-[1px] sm:py-[2px]">Django</span>
+                  <span className="bg-[#223366] text-[8px] sm:text-[10px] rounded px-1 sm:px-2 py-[1px] sm:py-[2px]">YOLOv8</span>
+                  <span className="bg-[#223366] text-[8px] sm:text-[10px] rounded px-1 sm:px-2 py-[1px] sm:py-[2px]">AI/ML</span>
                 </motion.div>
-                <motion.div className="flex items-center space-x-3 text-xs" variants={cardContentVariants}>
-                  <span className="text-blue-400 flex items-center gap-1">
-                    {/* <i className="fas fa-globe"></i> */}
+                <motion.div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-xs" variants={cardContentVariants}>
+                  <span className="text-blue-400 flex items-center justify-center sm:justify-start gap-1">
                     <a className="hover:underline hover:border-b-2 hover:border-blue-400 transition-all duration-200" href="#">Live Demo</a>
                   </span>
-                  <span className="text-gray-400 flex items-center gap-1">
-                    {/* <i className="fab fa-github"></i> */}
+                  <span className="text-gray-400 flex items-center justify-center sm:justify-start gap-1">
                     <a className="hover:underline hover:border-b-2 hover:border-blue-400 transition-all duration-200" href="#">GitHub</a>
                   </span>
                 </motion.div>
@@ -508,10 +515,10 @@ export default function Home() {
             </a>
           </div>
         </motion.div>
-        {/* Global Testimonials Section */}
-        <motion.div variants={sectionVariant} className="mt-24">
-          <h2 className="font-bold text-white text-2xl sm:text-3xl mb-10 text-center">Client Testimonials</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Responsive Testimonials Section */}
+        <motion.div variants={sectionVariant} className="mt-16 sm:mt-20 lg:mt-24">
+          <h2 className="font-bold text-white text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8 lg:mb-10 text-center px-4 sm:px-6">Client Testimonials</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6">
             {/* Testimonial 1 */}
             <motion.div
               variants={cardVariant}
@@ -621,41 +628,41 @@ export default function Home() {
           }}></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-          {/* Elegant Header */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative z-10">
+          {/* Responsive Elegant Header */}
           <motion.div 
             variants={sectionVariant}
-            className="text-center mb-20"
+            className="text-center mb-12 sm:mb-16 lg:mb-20 px-4 sm:px-6"
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-400/10 to-blue-500/10 border border-cyan-400/20 rounded-full px-6 py-2 mb-8"
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-400/10 to-blue-500/10 border border-cyan-400/20 rounded-full px-4 sm:px-6 py-2 mb-6 sm:mb-8"
             >
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-              <span className="text-cyan-400 text-sm font-medium">Ready to Collaborate</span>
+              <span className="text-cyan-400 text-xs sm:text-sm font-medium">Ready to Collaborate</span>
             </motion.div>
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight px-2 sm:px-4">
               Let&apos;s Create
               <br />
               <span className="bg-gradient-to-r from-cyan-300 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
                 Something Amazing
               </span>
             </h2>
-            <p className="text-gray-100 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-medium">
+            <p className="text-gray-100 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-medium px-4 sm:px-6">
               Transform your ideas into reality with cutting-edge technology and innovative solutions. 
               Available for freelance projects and full-time opportunities.
             </p>
           </motion.div>
 
-          {/* Contact Form & Info Grid */}
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-12 mb-20">
+          {/* Responsive Contact Form & Info Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-12 sm:mb-16 lg:mb-20">
             
-            {/* Contact Form - Takes 2 columns */}
-            <motion.div variants={sectionVariant} className="xl:col-span-2">
-              <div className="bg-gradient-to-br from-[#1a2332]/80 to-[#0f1a2a]/80 backdrop-blur-xl border border-[#2a3342]/50 rounded-3xl p-8 md:p-10 shadow-2xl shadow-cyan-400/10">
+            {/* Contact Form - Takes 2 columns on large screens */}
+            <motion.div variants={sectionVariant} className="lg:col-span-2">
+              <div className="bg-gradient-to-br from-[#1a2332]/80 to-[#0f1a2a]/80 backdrop-blur-xl border border-[#2a3342]/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl shadow-cyan-400/10">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-blue-500/5 rounded-3xl"></div>
                 
                 <div className="relative z-10">
@@ -669,10 +676,10 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                       <div className="space-y-2">
-                        <label htmlFor="name" className="text-sm font-semibold text-gray-100">Full Name</label>
+                        <label htmlFor="name" className="text-xs sm:text-sm font-semibold text-gray-100">Full Name</label>
                         <input
                           id="name"
                           name="name"
@@ -680,12 +687,12 @@ export default function Home() {
                           value={formData.name}
                           onChange={handleInputChange}
                           required
-                          className="w-full bg-[#0a0f1f]/80 border border-[#2a3342] rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300"
+                          className="w-full bg-[#0a0f1f]/80 border border-[#2a3342] rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 text-sm sm:text-base"
                           placeholder="John Doe"
                         />
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="email" className="text-sm font-semibold text-gray-100">Email Address</label>
+                        <label htmlFor="email" className="text-xs sm:text-sm font-semibold text-gray-100">Email Address</label>
                         <input
                           id="email"
                           name="email"
@@ -693,21 +700,21 @@ export default function Home() {
                           value={formData.email}
                           onChange={handleInputChange}
                           required
-                          className="w-full bg-[#0a0f1f]/80 border border-[#2a3342] rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300"
+                          className="w-full bg-[#0a0f1f]/80 border border-[#2a3342] rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 text-sm sm:text-base"
                           placeholder="john@example.com"
                         />
                       </div>
                     </div>
                     
                     <div className="space-y-2">
-                      <label htmlFor="projectType" className="text-sm font-semibold text-gray-100">Project Type</label>
+                      <label htmlFor="projectType" className="text-xs sm:text-sm font-semibold text-gray-100">Project Type</label>
                       <select
                         id="projectType"
                         name="projectType"
                         value={formData.projectType}
                         onChange={handleInputChange}
                         required
-                        className="w-full bg-[#0a0f1f]/80 border border-[#2a3342] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300"
+                        className="w-full bg-[#0a0f1f]/80 border border-[#2a3342] rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 text-sm sm:text-base"
                       >
                         <option value="">Select a project type</option>
                         <option value="web-development">Web Development</option>
@@ -719,7 +726,7 @@ export default function Home() {
                     </div>
                     
                     <div className="space-y-2">
-                      <label htmlFor="message" className="text-sm font-semibold text-gray-100">Project Details</label>
+                      <label htmlFor="message" className="text-xs sm:text-sm font-semibold text-gray-100">Project Details</label>
                       <textarea
                         id="message"
                         name="message"
@@ -727,7 +734,7 @@ export default function Home() {
                         value={formData.message}
                         onChange={handleInputChange}
                         required
-                        className="w-full bg-[#0a0f1f]/80 border border-[#2a3342] rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 resize-none"
+                        className="w-full bg-[#0a0f1f]/80 border border-[#2a3342] rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 resize-none text-sm sm:text-base"
                         placeholder="Tell me about your project, timeline, and requirements..."
                       ></textarea>
                     </div>
@@ -747,17 +754,17 @@ export default function Home() {
                       </motion.div>
                     )}
 
-                    <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
                       <motion.button
                         whileHover={{ scale: 1.02, y: -2 }}
                         whileTap={{ scale: 0.98 }}
                         type="submit"
                         disabled={isSubmitting}
-                        className="flex-1 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-black font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-cyan-400/25 hover:shadow-cyan-400/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex-1 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-black font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-lg sm:rounded-xl transition-all duration-300 shadow-lg shadow-cyan-400/25 hover:shadow-cyan-400/40 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                       >
                         {isSubmitting ? (
                           <span className="flex items-center justify-center space-x-2">
-                            <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                            <div className="w-4 sm:w-5 h-4 sm:h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
                             <span>Sending...</span>
                           </span>
                         ) : (
@@ -768,7 +775,7 @@ export default function Home() {
                         whileHover={{ scale: 1.02, y: -2 }}
                         whileTap={{ scale: 0.98 }}
                         type="button"
-                        className="flex items-center justify-center space-x-2 bg-[#1a2332] hover:bg-[#2a3342] border border-[#2a3342] hover:border-cyan-400/50 text-gray-300 hover:text-white font-medium py-4 px-6 rounded-xl transition-all duration-300"
+                        className="flex items-center justify-center space-x-2 bg-[#1a2332] hover:bg-[#2a3342] border border-[#2a3342] hover:border-cyan-400/50 text-gray-300 hover:text-white font-medium py-3 sm:py-4 px-4 sm:px-6 rounded-lg sm:rounded-xl transition-all duration-300 text-sm sm:text-base"
                       >
                         <i className="fas fa-calendar-alt text-sm"></i>
                         <span>Schedule Call</span>
@@ -903,14 +910,14 @@ export default function Home() {
             />
           </div>
 
-          <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 relative z-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
               
               {/* Enhanced Brand Section */}
               <motion.div 
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="md:col-span-2 space-y-6 group"
+                className="sm:col-span-2 space-y-4 sm:space-y-6 group"
               >
                 <motion.div 
                   whileHover={{ x: 5 }}
@@ -1131,21 +1138,21 @@ export default function Home() {
                 className="absolute top-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
               />
               
-              <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
                 <motion.div 
                   whileHover={{ scale: 1.02 }}
-                  className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm"
+                  className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 lg:space-x-6 text-xs sm:text-sm"
                 >
                   <motion.span 
                     whileHover={{ 
                       color: "#e5e7eb",
                       textShadow: "0 0 5px rgba(255, 255, 255, 0.3)"
                     }}
-                    className="text-gray-500 transition-all duration-300"
+                    className="text-gray-500 transition-all duration-300 text-center sm:text-left"
                   >
                     © 2024 Muhammad Huzaifa Ahmed. All rights reserved.
                   </motion.span>
-                  <div className="flex items-center space-x-4 text-gray-500">
+                  <div className="flex items-center space-x-3 sm:space-x-4 text-gray-500">
                     <motion.a 
                       href="#" 
                       whileHover={{ 
@@ -1154,7 +1161,7 @@ export default function Home() {
                         textShadow: "0 0 5px rgba(0, 255, 247, 0.5)"
                       }}
                       whileTap={{ scale: 0.95 }}
-                      className="hover:text-cyan-400 transition-all duration-300 relative"
+                      className="hover:text-cyan-400 transition-all duration-300 relative text-xs sm:text-sm"
                     >
                       Privacy Policy
                       <motion.div
@@ -1184,7 +1191,7 @@ export default function Home() {
                         textShadow: "0 0 5px rgba(0, 255, 247, 0.5)"
                       }}
                       whileTap={{ scale: 0.95 }}
-                      className="hover:text-cyan-400 transition-all duration-300 relative"
+                      className="hover:text-cyan-400 transition-all duration-300 relative text-xs sm:text-sm"
                     >
                       Terms of Service
                       <motion.div
