@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import type { MouseEvent } from "react";
+import FeaturedProjects from '../components/FeaturedProjects';
 
 // Animation variants
 const sectionVariant = {
@@ -81,6 +82,17 @@ export default function Home() {
   const [card2Ref, card2Motion, card2Controls] = useCardTilt();
   const [card3Ref, card3Motion, card3Controls] = useCardTilt();
 
+  // Force re-render when component mounts to fix navigation issues
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    // This ensures animations trigger properly when navigating from other pages
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Contact form state
   const [formData, setFormData] = useState({
     name: '',
@@ -150,20 +162,88 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen font-sans overflow-hidden">
-      {/* Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="fixed top-0 left-0 w-full h-full object-cover -z-10"
-        style={{ pointerEvents: 'none' }}
-      >
-        <source src="/199284-909903158.mp4" type="video/mp4" />
-      </video>
-      {/* Optional: Overlay for readability (above video, below content) */}
-      <div className="fixed top-0 left-0 w-full h-full bg-[#0a0f1f]/40 z-0 pointer-events-none" />
+    <main key="home-page" className="relative min-h-screen font-sans overflow-hidden bg-gradient-to-br from-[#0a0f1f] via-[#1a2332] to-[#0a0f1f]">
+      {/* Professional Color Background */}
+      <div className="fixed top-0 left-0 w-full h-full bg-gradient-to-br from-[#0a0f1f] via-[#1a2332] to-[#0a0f1f] -z-10" />
+      
+      {/* Subtle Background Pattern */}
+      <div className="fixed top-0 left-0 w-full h-full opacity-5 z-0 pointer-events-none">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 20% 20%, #00fff7 0.5px, transparent 0.5px),
+                           radial-gradient(circle at 80% 80%, #00fff7 0.5px, transparent 0.5px)`,
+          backgroundSize: '120px 120px'
+        }}></div>
+      </div>
+      
+      {/* Animated Background Elements */}
+      <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-5 pointer-events-none">
+        {/* Floating geometric shapes */}
+        <motion.div
+          className="absolute top-16 left-16 w-24 h-24 border border-cyan-400/20 rounded-full"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.3, 0.1],
+            rotate: [0, 180, 360]
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute top-32 right-24 w-20 h-20 border border-blue-500/20 rounded-full"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.2, 0.1],
+            rotate: [0, -180, -360]
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-24 left-24 w-16 h-16 border border-cyan-400/20 rounded-full"
+          animate={{
+            scale: [1, 1.4, 1],
+            opacity: [0.1, 0.25, 0.1],
+            rotate: [0, 90, 180]
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        
+        {/* Gradient orbs */}
+        <motion.div
+          className="absolute top-1/4 right-1/4 w-48 h-48 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.5, 1],
+            opacity: [0.1, 0.3, 0.1]
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 left-1/4 w-72 h-72 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
       {/* Responsive Header */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
@@ -187,13 +267,13 @@ export default function Home() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6 lg:space-x-8 text-xs font-semibold text-gray-300">
           <a className="hover:text-white transition relative group" href="#">
+            <span className="group-hover:underline group-hover:underline-offset-4">HOME</span>
+          </a>
+          <a className="hover:text-white transition relative group" href="/projects">
+            <span className="group-hover:underline group-hover:underline-offset-4">PROJECTS</span>
+          </a>
+          <a className="hover:text-white transition relative group" href="#">
             <span className="group-hover:underline group-hover:underline-offset-4">ABOUT</span>
-          </a>
-          <a className="hover:text-white transition relative group" href="#">
-            <span className="group-hover:underline group-hover:underline-offset-4">WORK</span>
-          </a>
-          <a className="hover:text-white transition relative group" href="#">
-            <span className="group-hover:underline group-hover:underline-offset-4">TESTIMONIALS</span>
           </a>
           <a className="hover:text-white transition relative group" href="#">
             <span className="group-hover:underline group-hover:underline-offset-4">CONTACT</span>
@@ -223,8 +303,7 @@ export default function Home() {
       {/* Responsive Hero Section */}
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.6 }}
+        animate={isVisible ? "visible" : "hidden"}
         variants={sectionVariant}
         className="text-center pt-8 sm:pt-10 md:pt-16 lg:pt-20 px-4 sm:px-6 md:px-8 max-w-4xl mx-auto relative z-20"
       >
@@ -278,8 +357,7 @@ export default function Home() {
       {/* Responsive About Section */}
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
+        animate={isVisible ? "visible" : "hidden"}
         variants={sectionVariant}
         className="mt-16 sm:mt-20 md:mt-24 lg:mt-32 flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-between max-w-7xl mx-auto gap-8 sm:gap-10 md:gap-16 lg:gap-20 px-4 sm:px-6 md:px-10 lg:px-16 relative z-20"
       >
@@ -354,270 +432,33 @@ export default function Home() {
       {/* --- Responsive Featured Work & Testimonials Section --- */}
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate={isVisible ? "visible" : "hidden"}
         variants={sectionVariant}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 pb-16 sm:pb-20 relative z-20"
       >
         {/* Featured Work Section */}
         <motion.div variants={sectionVariant}>
           <h2 className="font-bold text-white text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8 lg:mb-10 text-center px-4 sm:px-6">Featured Work</h2>
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6"
-            variants={cardStagger}
-            initial="initial"
-            animate="animate"
-          >
-            {/* Responsive Card 1 */}
-            <motion.div
-              ref={card1Ref}
-              {...card1Motion}
-              animate={card1Controls}
-              variants={cardVariant}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              className="bg-[#16244a]/80 rounded-xl overflow-hidden shadow-xl w-full max-w-sm mx-auto border border-blue-400/20 backdrop-blur-lg group transition-all duration-300"
-              style={{ willChange: "transform" }}
-            >
-              <Image
-                alt="Screenshot of FinTrack Dashboard showing financial analytics with charts and data"
-                className="w-full object-cover"
-                height={300}
-                src="https://storage.googleapis.com/a1aa/image/a4c4df80-fecb-406c-40db-dbd67b3cceb2.jpg"
-                width={600}
-              />
-              <motion.div
-                className="bg-[#1e2a4a]/80 p-3 sm:p-4 rounded-b-xl"
-                variants={cardContentVariants}
-                initial="initial"
-                whileHover="hover"
-              >
-                <motion.h3 className="font-bold text-white text-sm sm:text-base mb-2" variants={cardContentVariants}>RastaNigheban.ai</motion.h3>
-                <motion.p className="text-gray-100 text-xs sm:text-sm mb-3 leading-relaxed" variants={cardContentVariants}>
-                  AI-based road safety system using YOLOv8 for real-time pothole detection with React Native and Django.
-                </motion.p>
-                <motion.div className="flex flex-wrap gap-1 mb-3" variants={cardContentVariants}>
-                  <span className="bg-[#223366] text-[8px] sm:text-[10px] rounded px-1 sm:px-2 py-[1px] sm:py-[2px]">React Native</span>
-                  <span className="bg-[#223366] text-[8px] sm:text-[10px] rounded px-1 sm:px-2 py-[1px] sm:py-[2px]">Django</span>
-                  <span className="bg-[#223366] text-[8px] sm:text-[10px] rounded px-1 sm:px-2 py-[1px] sm:py-[2px]">YOLOv8</span>
-                  <span className="bg-[#223366] text-[8px] sm:text-[10px] rounded px-1 sm:px-2 py-[1px] sm:py-[2px]">AI/ML</span>
-                </motion.div>
-                <motion.div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-xs" variants={cardContentVariants}>
-                  <span className="text-blue-400 flex items-center justify-center sm:justify-start gap-1">
-                    <a className="hover:underline hover:border-b-2 hover:border-blue-400 transition-all duration-200" href="#">Live Demo</a>
-                  </span>
-                  <span className="text-gray-400 flex items-center justify-center sm:justify-start gap-1">
-                    <a className="hover:underline hover:border-b-2 hover:border-blue-400 transition-all duration-200" href="#">GitHub</a>
-                  </span>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-            {/* Card 2 */}
-            <motion.div
-              ref={card2Ref}
-              {...card2Motion}
-              animate={card2Controls}
-              variants={cardVariant}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              className="bg-[#16244a]/80 rounded-xl overflow-hidden shadow-xl max-w-sm mx-auto border border-blue-400/20 backdrop-blur-lg group transition-all duration-300"
-              style={{ willChange: "transform" }}
-            >
-              <Image
-                alt="Screenshot of HealthPulse App showing health tracking interface with circular progress and stats"
-                className="w-full object-cover"
-                height={300}
-                src="https://storage.googleapis.com/a1aa/image/b1341024-7bd9-4480-6521-c2e6aa39395c.jpg"
-                width={600}
-              />
-              <motion.div
-                className="bg-[#1e2a4a]/80 p-4 rounded-b-xl"
-                variants={cardContentVariants}
-                initial="initial"
-                whileHover="hover"
-              >
-                <motion.h3 className="font-bold text-white text-base mb-2" variants={cardContentVariants}>HR Management System</motion.h3>
-                <motion.p className="text-gray-100 text-sm mb-3 leading-relaxed" variants={cardContentVariants}>
-                  Comprehensive HR platform with candidate management, interview scheduling & automated coding assessments.
-                </motion.p>
-                <motion.div className="flex flex-wrap gap-1 mb-3" variants={cardContentVariants}>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">React/Next.js</span>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">Node.js</span>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">MongoDB</span>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">Docker</span>
-                </motion.div>
-                <motion.div className="flex items-center space-x-3 text-xs" variants={cardContentVariants}>
-                  <span className="text-blue-400 flex items-center gap-1">
-                    {/* <i className="fas fa-globe"></i> */}
-                    <a className="hover:underline hover:border-b-2 hover:border-blue-400 transition-all duration-200" href="#">Live Demo</a>
-                  </span>
-                  <span className="text-gray-400 flex items-center gap-1">
-                    {/* <i className="fab fa-github"></i> */}
-                    <a className="hover:underline hover:border-b-2 hover:border-blue-400 transition-all duration-200" href="#">GitHub</a>
-                  </span>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-            {/* Card 3 */}
-            <motion.div
-              ref={card3Ref}
-              {...card3Motion}
-              animate={card3Controls}
-              variants={cardVariant}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              className="bg-[#16244a]/80 rounded-xl overflow-hidden shadow-xl max-w-sm mx-auto border border-blue-400/20 backdrop-blur-lg group transition-all duration-300"
-              style={{ willChange: "transform" }}
-        >
-          <Image
-                alt="Screenshot of NeoStore E-Commerce platform showing AR product visualization and shopping interface"
-                className="w-full object-cover"
-                height={300}
-                src="https://storage.googleapis.com/a1aa/image/5d534afd-510a-4a58-e2b1-0d8831656c5c.jpg"
-                width={600}
-              />
-              <motion.div
-                className="bg-[#1e2a4a]/80 p-4 rounded-b-xl"
-                variants={cardContentVariants}
-                initial="initial"
-                whileHover="hover"
-              >
-                <motion.h3 className="font-bold text-white text-base mb-2" variants={cardContentVariants}>Naba Hussam E-commerce</motion.h3>
-                <motion.p className="text-gray-100 text-sm mb-3 leading-relaxed" variants={cardContentVariants}>
-                  Complete e-commerce solution with Admin panel, user authentication, product management, and order processing.
-                </motion.p>
-                <motion.div className="flex flex-wrap gap-1 mb-3" variants={cardContentVariants}>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">React.js</span>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">Node.js</span>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">MongoDB</span>
-                  <span className="bg-[#223366] text-[10px] rounded px-2 py-[2px]">Docker</span>
-                </motion.div>
-                <motion.div className="flex items-center space-x-3 text-xs" variants={cardContentVariants}>
-                  <span className="text-blue-400 flex items-center gap-1">
-                    {/* <i className="fas fa-globe"></i> */}
-                    <a className="hover:underline hover:border-b-2 hover:border-blue-400 transition-all duration-200" href="#">Live Demo</a>
-                  </span>
-                  <span className="text-gray-400 flex items-center gap-1">
-                    {/* <i className="fab fa-github"></i> */}
-                    <a className="hover:underline hover:border-b-2 hover:border-blue-400 transition-all duration-200" href="#">GitHub</a>
-                  </span>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+          <div className="px-4 sm:px-6">
+            <FeaturedProjects />
+          </div>
           <div className="mt-8 text-center">
-            <a className="text-cyan-400 text-xs flex items-center justify-center gap-1 hover:underline" href="#">
+            <a className="text-cyan-400 text-xs flex items-center justify-center gap-1 hover:underline" href="/projects">
               View All Projects
-              {/* <i className="fas fa-arrow-right"></i> */}
+              <i className="fas fa-arrow-right"></i>
             </a>
           </div>
         </motion.div>
-        {/* Responsive Testimonials Section */}
-        <motion.div variants={sectionVariant} className="mt-16 sm:mt-20 lg:mt-24">
-          <h2 className="font-bold text-white text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8 lg:mb-10 text-center px-4 sm:px-6">Client Testimonials</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6">
-            {/* Testimonial 1 */}
-            <motion.div
-              variants={cardVariant}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              className="bg-[#0a0f1f]/80 rounded-lg p-6 max-w-sm mx-auto shadow-2xl shadow-cyan-400/10 backdrop-blur-lg"
-            >
-              <p className="text-gray-300 italic text-xs mb-5 leading-relaxed">
-                <span className="text-cyan-400 text-lg align-top mr-1 leading-none">
-                  &ldquo;
-                </span>
-                <span className="font-semibold">Alex&apos;s ability</span>
-                to translate complex requirements into elegant solutions is unmatched. His technical expertise combined with design sensibility made our product a market leader.
-              </p>
-              <div className="flex items-center space-x-3">
-                <Image
-                  alt="Portrait of Michael Chen, CTO of Silicon Valley Startup"
-                  className="rounded-full w-10 h-10 object-cover"
-                  height={40}
-                  src="https://storage.googleapis.com/a1aa/image/9b7ae472-c810-4c36-73cf-3e7422e95917.jpg"
-                  width={40}
-                />
-                <div className="text-xs text-gray-400">
-                  <p className="font-semibold text-white text-[11px]">Michael Chen</p>
-                  <p>CTO, Silicon Valley Startup</p>
-                </div>
-              </div>
-            </motion.div>
-            {/* Testimonial 2 */}
-            <motion.div
-              variants={cardVariant}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              className="bg-[#0a0f1f]/80 rounded-lg p-6 max-w-sm mx-auto shadow-2xl shadow-cyan-400/10 backdrop-blur-lg"
-            >
-              <p className="text-gray-300 italic text-xs mb-5 leading-relaxed">
-                <span className="text-cyan-400 text-lg align-top mr-1 leading-none">
-                  &ldquo;
-                </span>
-                <span className="font-semibold">Working with Alex</span>
-                was a game-changer for our team. His attention to detail and ability to optimize performance took our application to the next level.
-              </p>
-              <div className="flex items-center space-x-3">
-                <Image
-                  alt="Portrait of Sarah Johnson, Product Manager at TechGiant Inc."
-                  className="rounded-full w-10 h-10 object-cover"
-                  height={40}
-                  src="https://storage.googleapis.com/a1aa/image/d658aafa-0d14-468e-145e-c6d4e78eb437.jpg"
-                  width={40}
-                />
-                <div className="text-xs text-gray-400">
-                  <p className="font-semibold text-white text-[11px]">Sarah Johnson</p>
-                  <p>Product Manager, TechGiant Inc.</p>
-                </div>
-              </div>
-            </motion.div>
-            {/* Testimonial 3 */}
-            <motion.div
-              variants={cardVariant}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              className="bg-[#0a0f1f]/80 rounded-lg p-6 max-w-sm mx-auto shadow-2xl shadow-cyan-400/10 backdrop-blur-lg"
-            >
-              <p className="text-gray-300 italic text-xs mb-5 leading-relaxed">
-                <span className="text-cyan-400 text-lg align-top mr-1 leading-none">
-                  &ldquo;
-                </span>
-                <span className="font-semibold">Alex delivered not just code, but a complete solution</span>
-                that exceeded our expectations. His ability to understand our business needs made him an invaluable partner.
-              </p>
-              <div className="flex items-center space-x-3">
-                <Image
-                  alt="Portrait of David Rodriguez, Founder of InnovateLab"
-                  className="rounded-full w-10 h-10 object-cover"
-                  height={40}
-                  src="https://storage.googleapis.com/a1aa/image/443aae70-58e7-47a4-500a-63e5f4a6de45.jpg"
-                  width={40}
-                />
-                <div className="text-xs text-gray-400">
-                  <p className="font-semibold text-white text-[11px]">David Rodriguez</p>
-                  <p>Founder, InnovateLab</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
+
       </motion.div>
 
       {/* --- Contact Section --- */}
       {/* Unified Contact & Footer Section - World Class Design */}
       <motion.section
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate={isVisible ? "visible" : "hidden"}
         variants={sectionVariant}
-        className="relative bg-gradient-to-b from-[#0a0f1f]/30 via-[#0e1a2e]/40 to-[#050a15]/50 overflow-hidden backdrop-blur-sm"
+        className="relative bg-gradient-to-b from-[#1a2332]/80 via-[#0f1a2a]/90 to-[#0a0f1f]/95 overflow-hidden backdrop-blur-sm border-t border-[#2a3342]/50"
       >
         {/* Subtle Background Pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -879,7 +720,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative border-t border-[#1a2332]/50 bg-gradient-to-b from-transparent to-[#050a15]/40 overflow-hidden backdrop-blur-sm"
+          className="relative border-t border-[#2a3342]/50 bg-gradient-to-b from-[#1a2332]/80 to-[#0a0f1f]/95 overflow-hidden backdrop-blur-sm"
         >
           {/* Animated Background Elements */}
           <div className="absolute inset-0 opacity-20">
@@ -984,7 +825,7 @@ export default function Home() {
                   Quick Links
                 </motion.h4>
                 <ul className="space-y-3">
-                  {['About', 'Work', 'Services', 'Blog', 'Contact'].map((link, index) => (
+                  {['Home', 'Projects', 'About', 'Contact'].map((link, index) => (
                     <motion.li 
                       key={link}
                       initial={{ opacity: 0, x: -10 }}
@@ -993,7 +834,7 @@ export default function Home() {
                       transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                     >
                       <motion.a
-                        href="#"
+                        href={link === 'Home' ? '/' : link === 'Projects' ? '/projects' : '#'}
                         whileHover={{ 
                           x: 8,
                           scale: 1.05
@@ -1127,7 +968,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="border-t border-[#1a2332]/50 pt-8 mt-12 relative"
+              className="border-t border-[#2a3342]/50 pt-8 mt-12 relative"
             >
               {/* Subtle glow line */}
               <motion.div
@@ -1135,7 +976,7 @@ export default function Home() {
                 whileInView={{ width: "100%" }}
                 viewport={{ once: true }}
                 transition={{ duration: 2, ease: "easeOut" }}
-                className="absolute top-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+                className="absolute top-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
               />
               
               <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">

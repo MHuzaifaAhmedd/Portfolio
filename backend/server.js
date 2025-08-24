@@ -11,6 +11,7 @@ dotenv.config();
 const contactRoutes = require('./routes/contact');
 const adminRoutes = require('./routes/admin');
 const authRoutes = require('./routes/auth');
+const projectRoutes = require('./routes/projects');
 
 // Initialize Express app
 const app = express();
@@ -36,6 +37,10 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api/contact', contactRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/projects', projectRoutes);
+
+// Serve uploaded files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

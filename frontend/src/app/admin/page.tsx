@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../hooks/useAuth';
 import WorldClassLoader from '../../components/WorldClassLoader';
 import ProtectedRoute from '../../components/ProtectedRoute';
+import ProjectManager from '../../components/ProjectManager';
 
 interface Contact {
   _id: string;
@@ -37,6 +38,7 @@ export default function AdminDashboard() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
+  const [activeTab, setActiveTab] = useState('contacts');
 
   // Fetch dashboard data
   useEffect(() => {
@@ -261,8 +263,36 @@ export default function AdminDashboard() {
         </motion.header>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+          {/* Tab Navigation */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex space-x-2 mb-6 sm:mb-8"
+          >
+            <button
+              onClick={() => setActiveTab('contacts')}
+              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                activeTab === 'contacts'
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-black shadow-lg'
+                  : 'bg-[#1a2332]/80 text-gray-300 hover:bg-[#2a3342]/80 border border-[#2a3342]/50'
+              }`}
+            >
+              📧 Contact Management
+            </button>
+            <button
+              onClick={() => setActiveTab('projects')}
+              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                activeTab === 'projects'
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-black shadow-lg'
+                  : 'bg-[#1a2332]/80 text-gray-300 hover:bg-[#2a3342]/80 border border-[#2a3342]/50'
+              }`}
+            >
+              🚀 Project Management
+            </button>
+          </motion.div>
+
           {/* Enhanced Stats Cards */}
-          {stats && (
+          {stats && activeTab === 'contacts' && (
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -350,172 +380,176 @@ export default function AdminDashboard() {
             </motion.div>
           )}
 
-          {/* Enhanced Controls Section */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-br from-[#1a2332]/90 to-[#0f1a2a]/90 backdrop-blur-xl border border-[#2a3342]/50 rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 shadow-xl"
-          >
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Contact Management</h2>
-                <p className="text-gray-400 text-sm">Filter, search, and manage your contacts efficiently</p>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 lg:space-x-4">
-                {/* Search */}
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search contacts..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full sm:w-48 lg:w-64 bg-[#0f1a2a]/80 border border-[#2a3342] rounded-xl px-4 py-3 pl-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 text-sm sm:text-base"
-                  />
-                  <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
-                </div>
-
-                {/* Status Filter */}
-                <select
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                  className="bg-[#0f1a2a]/80 border border-[#2a3342] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 text-sm sm:text-base"
-                >
-                  <option value="all">All Status</option>
-                  <option value="new">New</option>
-                  <option value="read">Read</option>
-                  <option value="replied">Replied</option>
-                  <option value="archived">Archived</option>
-                </select>
-
-                {/* Sort */}
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-[#0f1a2a]/80 border border-[#2a3342] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 text-sm sm:text-base"
-                >
-                  <option value="date">Sort by Date</option>
-                  <option value="name">Sort by Name</option>
-                  <option value="status">Sort by Status</option>
-                </select>
-
-                {/* Sort Order */}
-                <button
-                  onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
-                  className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black px-4 py-3 rounded-xl font-medium hover:from-cyan-500 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25 text-sm sm:text-base"
-                >
-                  {sortOrder === 'desc' ? '↓' : '↑'}
-                </button>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Enhanced Contacts Table */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-br from-[#1a2332]/90 to-[#0f1a2a]/90 backdrop-blur-xl border border-[#2a3342]/50 rounded-2xl overflow-hidden shadow-xl"
-          >
-            <div className="p-4 sm:p-6 border-b border-[#2a3342]/50">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+          {/* Enhanced Controls Section - Only show for contacts tab */}
+          {activeTab === 'contacts' && (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-gradient-to-br from-[#1a2332]/90 to-[#0f1a2a]/90 backdrop-blur-xl border border-[#2a3342]/50 rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 shadow-xl"
+            >
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white">Recent Contacts</h2>
-                  <p className="text-gray-400 text-sm mt-1">
-                    {filteredContacts.length} of {contacts.length} contacts
-                  </p>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Contact Management</h2>
+                  <p className="text-gray-400 text-sm">Filter, search, and manage your contacts efficiently</p>
                 </div>
-                <div className="text-left sm:text-right">
-                  <p className="text-xs sm:text-sm text-gray-400">Last updated</p>
-                  <p className="text-white font-medium text-sm sm:text-base">{new Date().toLocaleTimeString()}</p>
+                
+                <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 lg:space-x-4">
+                  {/* Search */}
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search contacts..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full sm:w-48 lg:w-64 bg-[#0f1a2a]/80 border border-[#2a3342] rounded-xl px-4 py-3 pl-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 text-sm sm:text-base"
+                    />
+                    <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
+                  </div>
+
+                  {/* Status Filter */}
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="bg-[#0f1a2a]/80 border border-[#2a3342] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="new">New</option>
+                    <option value="read">Read</option>
+                    <option value="replied">Replied</option>
+                    <option value="archived">Archived</option>
+                  </select>
+
+                  {/* Sort */}
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="bg-[#0f1a2a]/80 border border-[#2a3342] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    <option value="date">Sort by Date</option>
+                    <option value="name">Sort by Name</option>
+                    <option value="status">Sort by Status</option>
+                  </select>
+
+                  {/* Sort Order */}
+                  <button
+                    onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
+                    className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black px-4 py-3 rounded-xl font-medium hover:from-cyan-500 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25 text-sm sm:text-base"
+                  >
+                    {sortOrder === 'desc' ? '↓' : '↑'}
+                  </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
+          )}
 
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-[#0f1a2a]/80">
-                  <tr>
-                    <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Contact</th>
-                    <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider hidden sm:table-cell">Project</th>
-                    <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Status</th>
-                    <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider hidden lg:table-cell">Date</th>
-                    <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#2a3342]/50">
-                  {filteredContacts.map((contact, index) => (
-                    <motion.tr 
-                      key={contact._id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      className="hover:bg-[#1a2332]/30 transition-all duration-200 group"
-                    >
-                      <td className="px-3 sm:px-6 py-3 sm:py-4">
-                        <div className="flex items-center space-x-2 sm:space-x-3">
-                          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center text-black font-bold text-xs sm:text-sm">
-                            {contact.name.charAt(0).toUpperCase()}
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors duration-200 truncate">
-                              {contact.name}
-                            </div>
-                            <div className="text-xs text-gray-400 truncate">{contact.email}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-3 sm:px-6 py-3 sm:py-4 hidden sm:table-cell">
-                        <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-[#2a3342] to-[#3a4352] text-gray-300 border border-[#4a5362]/30">
-                          {contact.projectType}
-                        </span>
-                      </td>
-                      <td className="px-3 sm:px-6 py-3 sm:py-4">
-                        <select
-                          value={contact.status}
-                          onChange={(e) => updateContactStatus(contact._id, e.target.value)}
-                          className={`text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-medium ${getStatusColor(contact.status)} border-0 focus:ring-2 focus:ring-cyan-400/50 cursor-pointer transition-all duration-200 hover:scale-105`}
-                        >
-                          <option value="new">🆕 New</option>
-                          <option value="read">👁️ Read</option>
-                          <option value="replied">💬 Replied</option>
-                          <option value="archived">📁 Archived</option>
-                        </select>
-                      </td>
-                      <td className="px-3 sm:px-6 py-3 sm:py-4 hidden lg:table-cell">
-                        <div className="text-xs sm:text-sm text-gray-400">
-                          {formatDate(contact.createdAt)}
-                        </div>
-                      </td>
-                      <td className="px-3 sm:px-6 py-3 sm:py-4">
-                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                          <button
-                            onClick={() => setSelectedContact(contact)}
-                            className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-cyan-500 hover:to-blue-600 transition-all duration-200 shadow-lg hover:shadow-cyan-500/25 text-xs sm:text-sm w-full sm:w-auto"
-                          >
-                            👁️ View
-                          </button>
-                          <button
-                            onClick={() => updateContactStatus(contact._id, 'archived')}
-                            className="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-gray-600 hover:to-gray-700 transition-all duration-200 shadow-lg hover:shadow-gray-500/25 text-xs sm:text-sm w-full sm:w-auto"
-                          >
-                            📁 Archive
-                          </button>
-                        </div>
-                      </td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
-              
-              {filteredContacts.length === 0 && (
-                <div className="text-center py-8 sm:py-12">
-                  <div className="text-4xl sm:text-6xl mb-4">📭</div>
-                  <p className="text-gray-400 text-base sm:text-lg">No contacts found</p>
-                  <p className="text-gray-500 text-sm mt-1">Try adjusting your search or filters</p>
+          {/* Enhanced Contacts Table - Only show for contacts tab */}
+          {activeTab === 'contacts' && (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-gradient-to-br from-[#1a2332]/90 to-[#0f1a2a]/90 backdrop-blur-xl border border-[#2a3342]/50 rounded-2xl overflow-hidden shadow-xl"
+            >
+              <div className="p-4 sm:px-6 border-b border-[#2a3342]/50">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                  <div>
+                    <h2 className="text-xl sm:text-2xl font-bold text-white">Recent Contacts</h2>
+                    <p className="text-gray-400 text-sm mt-1">
+                      {filteredContacts.length} of {contacts.length} contacts
+                    </p>
+                  </div>
+                  <div className="text-left sm:text-right">
+                    <p className="text-xs sm:text-sm text-gray-400">Last updated</p>
+                    <p className="text-white font-medium text-sm sm:text-base">{new Date().toLocaleTimeString()}</p>
+                  </div>
                 </div>
-              )}
-            </div>
-          </motion.div>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-[#0f1a2a]/80">
+                    <tr>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Contact</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider hidden sm:table-cell">Project</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Status</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider hidden lg:table-cell">Date</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#2a3342]/50">
+                    {filteredContacts.map((contact, index) => (
+                      <motion.tr 
+                        key={contact._id}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="hover:bg-[#1a2332]/30 transition-all duration-200 group"
+                      >
+                        <td className="px-3 sm:px-6 py-3 sm:py-4">
+                          <div className="flex items-center space-x-2 sm:space-x-3">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center text-black font-bold text-xs sm:text-sm">
+                              {contact.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors duration-200 truncate">
+                                {contact.name}
+                              </div>
+                              <div className="text-xs text-gray-400 truncate">{contact.email}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 hidden sm:table-cell">
+                          <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-[#2a3342] to-[#3a4352] text-gray-300 border border-[#4a5362]/30">
+                            {contact.projectType}
+                          </span>
+                        </td>
+                        <td className="px-3 sm:px-6 py-3 sm:py-4">
+                          <select
+                            value={contact.status}
+                            onChange={(e) => updateContactStatus(contact._id, e.target.value)}
+                            className={`text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-medium ${getStatusColor(contact.status)} border-0 focus:ring-2 focus:ring-cyan-400/50 cursor-pointer transition-all duration-200 hover:scale-105`}
+                          >
+                            <option value="new">🆕 New</option>
+                            <option value="read">👁️ Read</option>
+                            <option value="replied">💬 Replied</option>
+                            <option value="archived">📁 Archived</option>
+                          </select>
+                        </td>
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 hidden lg:table-cell">
+                          <div className="text-xs sm:text-sm text-gray-400">
+                            {formatDate(contact.createdAt)}
+                          </div>
+                        </td>
+                        <td className="px-3 sm:px-6 py-3 sm:py-4">
+                          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                            <button
+                              onClick={() => setSelectedContact(contact)}
+                              className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-cyan-500 hover:to-blue-600 transition-all duration-200 shadow-lg hover:shadow-cyan-500/25 text-xs sm:text-sm w-full sm:w-auto"
+                            >
+                              👁️ View
+                            </button>
+                            <button
+                              onClick={() => updateContactStatus(contact._id, 'archived')}
+                              className="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-gray-600 hover:to-gray-700 transition-all duration-200 shadow-lg hover:shadow-gray-500/25 text-xs sm:text-sm w-full sm:w-auto"
+                            >
+                              📁 Archive
+                            </button>
+                          </div>
+                        </td>
+                      </motion.tr>
+                    ))}
+                  </tbody>
+                </table>
+                
+                {filteredContacts.length === 0 && (
+                  <div className="text-center py-8 sm:py-12">
+                    <div className="text-4xl sm:text-6xl mb-4">📭</div>
+                    <p className="text-gray-400 text-base sm:text-lg">No contacts found</p>
+                    <p className="text-gray-500 text-sm mt-1">Try adjusting your search or filters</p>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
         </div>
 
         {/* Enhanced Contact Detail Modal - Fully Responsive */}
@@ -637,6 +671,11 @@ export default function AdminDashboard() {
                 </div>
               </motion.div>
             </motion.div>
+          )}
+
+          {/* Project Management Tab */}
+          {activeTab === 'projects' && (
+            <ProjectManager />
           )}
         </AnimatePresence>
       </div>
