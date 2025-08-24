@@ -48,7 +48,7 @@ export default function LoaderDemo() {
                       name="variant"
                       value={variant.key}
                       checked={selectedVariant === variant.key}
-                      onChange={(e) => setSelectedVariant(e.target.value as any)}
+                      onChange={(e) => setSelectedVariant(e.target.value as 'pulse' | 'spin' | 'bounce' | 'wave')}
                       className="w-4 h-4 text-cyan-400 bg-gray-700 border-gray-600 focus:ring-cyan-500"
                     />
                     <div>
@@ -71,7 +71,7 @@ export default function LoaderDemo() {
                       name="size"
                       value={size.key}
                       checked={selectedSize === size.key}
-                      onChange={(e) => setSelectedSize(e.target.value as any)}
+                      onChange={(e) => setSelectedSize(e.target.value as 'small' | 'medium' | 'large')}
                       className="w-4 h-4 text-cyan-400 bg-gray-700 border-gray-600 focus:ring-cyan-500"
                     />
                     <div>
@@ -148,7 +148,7 @@ export default function LoaderDemo() {
               <span className="text-2xl">🌈</span>
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Brand Colors</h3>
-            <p className="text-gray-400">Uses your portfolio's cyan and blue color scheme for brand consistency.</p>
+            <p className="text-gray-400">Uses your portfolio&apos;s cyan and blue color scheme for brand consistency.</p>
           </div>
 
           <div className="bg-[#1a2332]/80 backdrop-blur-xl border border-[#2a3342]/50 rounded-2xl p-6">
@@ -156,7 +156,7 @@ export default function LoaderDemo() {
               <span className="text-2xl">🚀</span>
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Performance</h3>
-            <p className="text-gray-400">Optimized animations that don't impact performance or user experience.</p>
+            <p className="text-gray-400">Optimized animations that don&apos;t impact performance or user experience.</p>
           </div>
         </div>
 

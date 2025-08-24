@@ -635,15 +635,15 @@ export default function ProjectManager() {
       if (line.startsWith('require')) {
         const parts = line.split(' ');
         if (parts.length >= 2) {
-          const module = parts[1].toLowerCase();
+          const moduleName = parts[1].toLowerCase();
           
-          if (module.includes('gin')) technologies.push('Gin');
-          if (module.includes('echo')) technologies.push('Echo');
-          if (module.includes('fiber')) technologies.push('Fiber');
-          if (module.includes('gorilla')) technologies.push('Gorilla');
-          if (module.includes('gorm')) technologies.push('GORM');
-          if (module.includes('sqlx')) technologies.push('SQLx');
-          if (module.includes('testify')) technologies.push('Testify');
+          if (moduleName.includes('gin')) technologies.push('Gin');
+          if (moduleName.includes('echo')) technologies.push('Echo');
+          if (moduleName.includes('fiber')) technologies.push('Fiber');
+          if (moduleName.includes('gorilla')) technologies.push('Gorilla');
+          if (moduleName.includes('gorm')) technologies.push('GORM');
+          if (moduleName.includes('sqlx')) technologies.push('SQLx');
+          if (moduleName.includes('testify')) technologies.push('Testify');
         }
       }
     });

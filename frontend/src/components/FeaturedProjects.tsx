@@ -66,7 +66,7 @@ export default function FeaturedProjects() {
       <div className="text-center py-12">
         <div className="text-4xl mb-4">🚀</div>
         <p className="text-gray-400 text-lg">No featured projects yet</p>
-        <p className="text-gray-500 text-sm mt-2">Projects will appear here once they're added to the admin panel</p>
+                         <p className="text-gray-500 text-sm mt-2">Projects will appear here once they&apos;re added to the admin panel</p>
       </div>
     );
   }

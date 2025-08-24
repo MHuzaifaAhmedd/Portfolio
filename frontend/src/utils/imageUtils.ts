@@ -1,4 +1,4 @@
-import { getImageUrl as getApiImageUrl, getProjectImageUrl as getApiProjectImageUrl } from './api';
+import { getImageUrl as getApiImageUrl } from './api';
 
 /**
  * Utility functions for handling image URLs consistently across the application
