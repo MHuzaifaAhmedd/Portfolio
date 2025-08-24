@@ -774,7 +774,7 @@ export default function ProjectManager() {
   };
 
   // Detect frameworks from repository structure
-  const detectFrameworksFromStructure = (repoData: any): string[] => {
+  const detectFrameworksFromStructure = (repoData: { topics?: string[] }): string[] => {
     const frameworks: string[] = [];
     
     // Check for common framework indicators
@@ -860,7 +860,7 @@ export default function ProjectManager() {
   };
 
   // Generate comprehensive short description with more details
-  const generateComprehensiveShortDescription = (description: string, technologies: string[], language: string, repoData: any): string => {
+  const generateComprehensiveShortDescription = (description: string, technologies: string[], language: string, repoData: { stargazers_count?: number; forks_count?: number }): string => {
     if (description.length <= 150) return description;
 
     const techString = technologies.slice(0, 5).join(', '); // Top 5 technologies
@@ -886,7 +886,7 @@ export default function ProjectManager() {
   };
 
   // Extract additional project details from README
-  const extractProjectDetails = (readmeContent: string, repoData: any) => {
+  const extractProjectDetails = (readmeContent: string, repoData: { name?: string; homepage?: string; owner?: { avatar_url?: string } }) => {
     const details = {
       title: repoData.name || '',
       liveDemo: '',
@@ -941,7 +941,7 @@ export default function ProjectManager() {
   };
 
   // Extract comprehensive project details from README and repository data
-  const extractComprehensiveProjectDetails = (readmeContent: string, repoData: any) => {
+  const extractComprehensiveProjectDetails = (readmeContent: string, repoData: { homepage?: string; owner?: { avatar_url?: string } }) => {
     const details = extractProjectDetails(readmeContent, repoData);
     
     // Add more comprehensive details
@@ -1152,7 +1152,7 @@ export default function ProjectManager() {
     gemfile: string;
     mixfile: string;
     language: string;
-    repoData: any;
+    repoData: { topics?: string[] };
   }): Promise<string[]> => {
     const allTechnologies = new Set<string>();
 
