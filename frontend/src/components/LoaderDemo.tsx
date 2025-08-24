@@ -48,7 +48,7 @@ export default function LoaderDemo() {
                       name="variant"
                       value={variant.key}
                       checked={selectedVariant === variant.key}
-                      onChange={(e) => setSelectedVariant(e.target.value as 'pulse' | 'spin' | 'bounce' | 'wave')}
+                      onChange={(e) => setSelectedVariant(e.target.value as 'default' | 'pulse' | 'wave' | 'orbit')}
                       className="w-4 h-4 text-cyan-400 bg-gray-700 border-gray-600 focus:ring-cyan-500"
                     />
                     <div>
@@ -71,7 +71,7 @@ export default function LoaderDemo() {
                       name="size"
                       value={size.key}
                       checked={selectedSize === size.key}
-                      onChange={(e) => setSelectedSize(e.target.value as 'small' | 'medium' | 'large')}
+                      onChange={(e) => setSelectedSize(e.target.value as 'sm' | 'md' | 'lg')}
                       className="w-4 h-4 text-cyan-400 bg-gray-700 border-gray-600 focus:ring-cyan-500"
                     />
                     <div>
