@@ -1,3 +1,5 @@
+import { getImageUrl as getApiImageUrl, getProjectImageUrl as getApiProjectImageUrl } from './api';
+
 /**
  * Utility functions for handling image URLs consistently across the application
  */
@@ -9,19 +11,18 @@
  * @returns Properly formatted image URL
  */
 export const getImageUrl = (imagePath: string, fallbackText: string = 'No Image'): string => {
-  if (!imagePath) {
+  // Handle null/undefined/empty cases
+  if (!imagePath || imagePath.trim() === '') {
     return `https://via.placeholder.com/600x300/1a2332/00fff7?text=${encodeURIComponent(fallbackText)}`;
   }
   
-  if (imagePath.startsWith('http')) {
+  // Handle external URLs (http/https)
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
     return imagePath;
   }
   
-  if (imagePath.startsWith('/uploads/')) {
-    return `http://localhost:5000${imagePath}`;
-  }
-  
-  return imagePath;
+  // Use the centralized API configuration
+  return getApiImageUrl(imagePath);
 };
 
 /**
@@ -42,7 +43,24 @@ export const getPlaceholderUrl = (text: string, width: number = 600, height: num
  */
 export const isValidImageUrl = (url: string): boolean => {
   if (!url) return false;
-  if (url.startsWith('http')) return true;
-  if (url.startsWith('/uploads/')) return true;
+  if (url.startsWith('http://') || url.startsWith('https://')) return true;
+  if (url.includes('uploads/')) return true;
   return false;
+};
+
+/**
+ * Debug image URL processing
+ * @param imagePath - The original image path
+ * @param context - Context for debugging
+ */
+export const debugImageUrl = (imagePath: string, context: string = 'Unknown'): void => {
+  console.log(`[Image Debug - ${context}]`, {
+    original: imagePath,
+    processed: getImageUrl(imagePath),
+    type: typeof imagePath,
+    length: imagePath?.length,
+    startsWithUploads: imagePath?.startsWith('/uploads/'),
+    startsWithHttp: imagePath?.startsWith('http'),
+    includesProjects: imagePath?.includes('projects/')
+  });
 };
